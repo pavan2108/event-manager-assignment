@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "5bb210d8-e185-4eca-8bc9-5b6a93d3c523",
+		"name": "Event Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13751596"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eventName\": \"Job Post Event\",\n    \"eventDate\": \"Mon Jun 19 2023 20:09:30 GMT+0530\",\n    \"organizer\": \"pavan2108\",\n    \"email\": \"pavansssai2001@gmail.com\",\n    \"phone\": \"8500220568\",\n    \"location\": {\n        \"street\": \"vicky street\",\n        \"city\": \"vicky city\",\n        \"state\": \"vicky state\",\n        \"zip\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/event/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"event",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Events List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": {\n        \"street\": \"vicky street\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/event/get?street=vicky street&city",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"event",
+						"get"
+					],
+					"query": [
+						{
+							"key": "street",
+							"value": "vicky street"
+						},
+						{
+							"key": "city",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Event Using Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/event/:_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"event",
+						":_id"
+					],
+					"variable": [
+						{
+							"key": "_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Event",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eventName\": \"Job Post Event\",\n    \"eventDate\": \"Mon Jun 19 2023 20:09:30 GMT+0530\",\n    \"organizer\": \"pavan2108\",\n    \"email\": \"pavansssai@gmail.com\",\n    \"phone\": \"8500220568\",\n    \"location\": {\n        \"street\": \"vicky street\",\n        \"city\": \"vicky city\",\n        \"state\": \"vicky state\",\n        \"zip\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/event/update/:_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"event",
+						"update",
+						":_id"
+					],
+					"variable": [
+						{
+							"key": "_id",
+							"value": "64906924e0228d29fa16b779"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Event",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/event/:_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"event",
+						":_id"
+					],
+					"variable": [
+						{
+							"key": "_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
