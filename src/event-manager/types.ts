@@ -18,7 +18,7 @@ type EventDraft = {
 };
 
 type EventId = {
-    _id: string | ObjectId;
+    _id: string;
 };
 
 type EventFilter = {

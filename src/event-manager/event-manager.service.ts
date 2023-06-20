@@ -1,11 +1,20 @@
 import EventManager from "./event-manager.entity"
 import { EventDraft, EventId, EventFilter } from "./types";
+import { validateEventCreate, validateEventFilter, validateEventId, validateEventUpdate } from "./validation";
 
 
 const createEventService = async (event: EventDraft) => {
     try {
         // Validate the data entered by the user
+        const { error } = validateEventCreate(event);
+        
         // If the data is invalid, throw an error
+        if (error) {
+            return {
+                message: error.message,
+                status: "error"
+            };
+        }
         // If the data is valid, save the event to the database
         const createdEvent = await EventManager.create(event);
         await createdEvent.save();
@@ -26,7 +35,13 @@ const createEventService = async (event: EventDraft) => {
 const updateEventService = async (event: EventDraft & EventId) => {
     try {
         // Validate the data entered by the user
+        const { error } = validateEventUpdate(event);
         // If the data is invalid, throw an error
+        if (error) {
+            return {
+                message: error.message,
+                status: "error"
+            }}
         // If the data is valid, update the event in the database
         const updatedEvent = await EventManager.findByIdAndUpdate(event._id, event, { new: true });
         if (updatedEvent === null) {
@@ -54,7 +69,14 @@ const updateEventService = async (event: EventDraft & EventId) => {
 
 const deleteEventService = async (id: EventId) => {
     try {
-        const deletedEvent = await EventManager.findByIdAndDelete(id);
+        const { error } = validateEventId(id._id);
+        if (error) {
+            return {
+                message: error.message,
+                status: "error"
+            };
+        }
+        const deletedEvent = await EventManager.findByIdAndDelete(id._id);
         if (deletedEvent === null) {
             return {
                 message: "Event not found",
@@ -77,7 +99,14 @@ const deleteEventService = async (id: EventId) => {
 
 const getEventService = async (id: EventId) => {
     try {
-        const event = await EventManager.findById(id);
+        const { error } = validateEventId(id._id);
+        if (error) {
+            return {
+                message: error.message,
+                status: "error"
+            };
+        }
+        const event = await EventManager.findById(id._id);
         if (event === null) {
             return {
                 message: "Event not found",
@@ -100,6 +129,13 @@ const getEventService = async (id: EventId) => {
 
 const getEventsService = async (eventFilter: EventFilter) => {
     try {
+        const { error } = validateEventFilter(eventFilter);
+        if (error) {
+            return {
+                message: error.message,
+                status: "error"
+            };
+        }
         const { eventName, eventDate, organizer, email, phone, city, _id, page, limit, state, street, zip } = eventFilter;
 
         // Build the filter object based on the available fields
